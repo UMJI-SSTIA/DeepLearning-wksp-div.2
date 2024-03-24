@@ -21,7 +21,6 @@ Workshop div.1的文档：
 
 ## Worksheet Guide
 
-Worksheet_Part 1 .pdf: Deeplearning 理论知识介绍
-Worksheet_Part 2 .md: CNN基础知识
-Worksheet_Part 3 .md: 常见CNN网络及搭建
-
+- Worksheet_Part 1 .pdf: Deeplearning 理论知识介绍
+- Worksheet_Part 2 .md: CNN基础知识
+- Worksheet_Part 3 .md: 常见CNN网络及搭建
