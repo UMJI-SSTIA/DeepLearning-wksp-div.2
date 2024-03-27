@@ -16,7 +16,7 @@ class VGGBlock(nn.Module):
         return self.vgg_block(x)
 
 class VGG(nn.Module):
-    def _init_(self,conv_arch,in_channels):  # conv_arch里装着每一个VGG块的参数
+    def _init_(self,conv_arch,in_channels):  # conv_arch是一个列表，里面装着每一个VGG块的参数，形如（10,12）
         super(VGG, self).__init__()
         conv_blks = []
         for (num_convs, out_channels) in conv_arch:

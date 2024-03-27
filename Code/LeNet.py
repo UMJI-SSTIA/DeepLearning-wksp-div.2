@@ -23,10 +23,10 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=32, shuffle=False)
 class MNIST_LeNEt(nn.Module):
     def __init__(self):
         super(MNIST_LeNEt, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=6,kernel_size=5,padding=2)
-        self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2)
-        self.conv2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5) 
-        self.pool2 = nn.AvgPool2d(kernel_size=2, stride=2)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=6,kernel_size=5,padding=2) #output_size: 6*25*25
+        self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2) # output_size: 6*12*12
+        self.conv2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5)  # output_size: 16*8*8
+        self.pool2 = nn.AvgPool2d(kernel_size=2, stride=2) # output_size: 16*5*5
         self.fc1 = nn.Linear(in_features=16 * 5 * 5, out_features=120)  
         self.fc2 = nn.Linear(in_features=120, out_features=84)    
         self.fc3 = nn.Linear(in_features=84,out_features=10)
@@ -36,7 +36,7 @@ class MNIST_LeNEt(nn.Module):
         x = self.pool1(x)
         x = self.conv2(x)
         x = self.pool2(x)
-        x = x.view(-1, 16 * 5 * 5)  # Flatten the tensor
+        x = x.view(-1, 16 * 5 * 5)  # Flatten the tensor, 3d to 2d
         # x = F.sigmoid(self.fc1(x))
         x = F.relu(self.fc1(x))
         # x = F.sigmoid(self.fc2(x))
@@ -92,7 +92,7 @@ for epoch in range(5):
 
 correct = 0
 total = 0
-num_image_shown = 10
+
 with torch.no_grad():
     for data in testloader:
         images, labels = data
@@ -103,5 +103,6 @@ with torch.no_grad():
     
 print(f"Accuracy: {100 * correct / total}%")
 
+num_image_shown = 15
 show_images(images[0:num_image_shown].reshape((num_image_shown,28,28)),
                     1,num_image_shown,titles=get_mnist_labels(predicted))
